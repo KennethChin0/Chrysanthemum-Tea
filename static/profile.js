@@ -9,7 +9,7 @@ var check = function(e){
   }
 }
 
-var render = function(e){
+var render = function(e){//displays all entries of this month
   console.log(e)
 }
 
@@ -18,7 +18,7 @@ var expense = document.getElementById("expense")
 var entry = document.getElementById("entryButton")
 entry.addEventListener('click', function(e) {addEntry()})
 
-var addEntry = function(e){
+var addEntry = function(e){//adds entry to database and redisplays all entry of this month
   console.log(date.value)
   console.log(expense.value)
 }
