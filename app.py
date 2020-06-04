@@ -126,74 +126,13 @@ def addUser(user, pswd, conf):
     flash('Passwords do not match. Please try again.')
     return False
 
-#inserts a selected bike of the current user
-@app.route("/addBike")
-def addBike():
-    with sqlite3.connect(DB_FILE) as connection:
-        c = connection.cursor()
-        c.execute("INSERT INTO SAVEDBIKES VALUES ('{}', '{}')".format(session['user'],2)) #Adds the bike of the logged in user
-        connection.commit()
-    return redirect(url_for("profile"))
-
-
-# Dispalys user's personal blog page and loads HTML with blog writing form
 @app.route("/profile")
 def profile():
     #checks if user in session
     if "user" not in session:
         return redirect(url_for('root'))
-    if (len(request.args) == 1):
-        with sqlite3.connect(DB_FILE) as connection:
-            c = connection.cursor()
-            if ("id" in request.args.keys()):
-                c.execute("SELECT * FROM SAVEDBIKES WHERE username = (?) AND bikeNumber = (?)", (session["user"], request.args["id"]))
-                if (len(c.fetchall()) == 0):
-                    c.execute("INSERT INTO SAVEDBIKES VALUES (?, ?)", (session["user"], request.args["id"]))
-            if ("rid" in request.args.keys()):
-                c.execute("DELETE FROM SAVEDBIKES WHERE username = (?) AND bikeNumber = (?)", (session["user"], request.args["rid"]))
-            if ("dr" in request.args.keys()):
-                c.execute("DELETE FROM REVIEWS WHERE username = (?) AND bikeNumber = (?)", (session["user"], request.args["dr"]))
-            connection.commit()
-    entryList = updateSavedBikes()
-    userList = updateUsers()
-    reviewList = updateReviews()
-    # userSaved is filtered list of all entries by specific user
-    userSaved = []
-    toprint = []
-    reviews = []
-    reviewLocales = {}
-    # goes through Saved bikes and if it is the users it appends it
-    for entry in entryList:
-        if entry[0] == session['user']:
-            userSaved.append(entry)
-    for entry in userSaved:
-        cityName = ""
-        with sqlite3.connect(DB_FILE) as connection:
-          cur = connection.cursor()
-          q = "SELECT * FROM BIKES"
-          foo = cur.execute(q)
-          bikeList = foo.fetchall()
-          for x in bikeList:
-              if x[0] == entry[1]:
-                  toprint.append(x)
-                  break
-    for entry in reviewList:
-        if entry[0] == session["user"]:
-            reviews.append(entry)
+    return render_template("profile.html")
 
-    reviews.reverse()
-    with sqlite3.connect(DB_FILE) as connection:
-        cur = connection.cursor()
-        q = "SELECT * FROM BIKES"
-        foo = cur.execute(q)
-        rL = foo.fetchall()
-        for x in rL:
-          for y in reviews:
-              if x[0] == y[1]:
-                  reviewLocales[y[1]] = (x[2], x[3])
-    return render_template("profile.html",
-    title = "Profile - {}".format(session["user"]), heading = session["user"],
-    entries = userSaved, toprint = toprint, reviews = reviews, locs = reviewLocales, sessionstatus = "user" in session)
 
 
 
