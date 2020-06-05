@@ -39,10 +39,18 @@
   </div>
 </div>
 Enter a date:
-<form action="/processEntry">
+<form action="/processEntry" method="post">
 <input type="date" id="date" name="date">
 Enter your expense:
 <input type="text" id="expense" name="expense">
+Enter the category:
+<select name="category">
+  <option value="income">Income</option>
+  <option value="food">Food</option>
+  <option value="rent">Rent</option>
+  <option value="clothing">Clothing</option>
+  <option value="other">Other</option>
+</select>
 <button type="submit" id = "entryButton">Create new entry for chosen month</button>
 </form>
 </div> <br><br><br>

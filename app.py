@@ -104,6 +104,18 @@ def register():
       flash('Please make sure to fill all fields!')
   return render_template("register.html")
 
+@app.route("/processEntry", methods = ['POST'])
+def processEntry():
+    user = session['user']
+    print(user)
+    date = request.form['date']
+    print(date)
+    expense = request.form['expense']
+    print(expense)
+    category = request.form['category']
+    print(category)
+    return redirect(url_for("profile"))
+
 #logout route: removes the user from session and redirects to root
 @app.route("/logout")
 def logout():
