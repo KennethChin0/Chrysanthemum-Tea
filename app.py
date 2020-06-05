@@ -114,6 +114,13 @@ def processEntry():
     print(expense)
     category = request.form['category']
     print(category)
+    listOfStuff = date.split('-')
+    month = listOfStuff[1]
+    print(month)
+    with sqlite3.connect(DB_FILE) as connection:
+      cur = connection.cursor()
+      q = "INSERT INTO " + user + " VALUES('" +month+ "','" +date +"'," +expense+ ",'"+ category+ "');"
+      cur.execute(q)
     return redirect(url_for("profile"))
 
 #logout route: removes the user from session and redirects to root
