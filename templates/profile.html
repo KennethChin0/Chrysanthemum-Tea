@@ -39,10 +39,12 @@
   </div>
 </div>
 Enter a date:
+<form action="/processEntry">
 <input type="date" id="date" name="date">
 Enter your expense:
 <input type="text" id="expense" name="expense">
-<button type="button" id = "entryButton">Create new entry for chosen month</button>
+<button type="submit" id = "entryButton">Create new entry for chosen month</button>
+</form>
 </div> <br><br><br>
 <script src="static/profile.js"></script>
 {% endblock %}

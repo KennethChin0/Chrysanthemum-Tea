@@ -94,6 +94,9 @@ def register():
 
       if(addUser(inpUser, inpPass, inpConf)):
         flash('Success! Please login.')
+        with sqlite3.connect(DB_FILE) as connection:
+            cur = connection.cursor()
+            cur.execute("CREATE TABLE IF NOT EXISTS " +inpUser+ "(month TEXT, date TEXT, expense INTEGER, category TEXT)")
         return redirect(url_for("login"))
       else:
         return(redirect(url_for("register")))
