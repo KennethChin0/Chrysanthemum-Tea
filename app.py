@@ -3,7 +3,7 @@
 # K25
 # 11/13/2019
 
-from flask import Flask, render_template, request, session, redirect, url_for, redirect
+from flask import Flask, render_template, request, session, redirect, url_for, redirect, json
 import sqlite3
 import os
 from flask import flash
@@ -153,7 +153,13 @@ def profile():
     #checks if user in session
     if "user" not in session:
         return redirect(url_for('root'))
-    return render_template("profile.html")
+    with sqlite3.connect(DB_FILE) as connection:
+        cur = connection.cursor()
+        q = "SELECT * FROM " + session['user'] + ";"
+        thingy = cur.execute(q)
+        data = thingy.fetchall()
+        print(data)
+    return render_template("profile.html", data = json.dumps(data))
 
 
 

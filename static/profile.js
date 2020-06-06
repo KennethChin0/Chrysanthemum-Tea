@@ -22,3 +22,7 @@ var addEntry = function(e){//adds entry to database and redisplays all entry of 
   console.log(date.value)
   console.log(expense.value)
 }
+
+var x = document.getElementById("data").value;
+x2 = JSON.parse(x)
+console.log(x2)
