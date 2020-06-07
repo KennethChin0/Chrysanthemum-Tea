@@ -18,18 +18,24 @@ var render = function(e){//displays all entries of this month
   year = yearAndMonth[0]
   month = yearAndMonth[1]
   var x = document.getElementById("display")
+  var total = 0;
   for (var i=0;i<data.length; i++){
     if (data[i][0] == month){
       var addDate = document.createTextNode(data[i][1]);
       var addExpense = document.createTextNode(data[i][2]);
       var addCategory = document.createTextNode(data[i][3]);
       var addNewLine = document.createElement("br")
+      total += data[i][2]
       x.appendChild(addDate)
       x.appendChild(addExpense)
       x.appendChild(addCategory)
       x.appendChild(addNewLine)
     }
   }
+  console.log(total)
+  var addBudget = document.createTextNode("Your budget remaining is " + total)
+  var y = document.getElementById("total")
+  y.appendChild(addBudget)
 }
 
 var date = document.getElementById("date")
