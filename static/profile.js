@@ -1,16 +1,35 @@
-var month = document.getElementById("month")
-var chosenMonth = document.getElementById("monthButton")
+var monthInput = document.getElementById("month");
+var chosenMonth = document.getElementById("monthButton");
 chosenMonth.addEventListener('click', function(e) {check()})
 
 var check = function(e){
-  console.log(month.value)
-  if (parseInt(month.value) >= 2020){//parseInt get the year
-    render(parseInt(month.value))//passes chosen month to render
+  console.log(monthInput)
+  if (parseInt(monthInput.value) >= 2020){//parseInt get the year
+    render(monthInput.value)//passes chosen month to render
   }
 }
 
+var x = document.getElementById("data").value;
+data = JSON.parse(x)
+console.log(data)
+
 var render = function(e){//displays all entries of this month
-  console.log(e)
+  yearAndMonth = e.split("-")
+  year = yearAndMonth[0]
+  month = yearAndMonth[1]
+  var x = document.getElementById("display")
+  for (var i=0;i<data.length; i++){
+    if (data[i][0] == month){
+      var addDate = document.createTextNode(data[i][1]);
+      var addExpense = document.createTextNode(data[i][2]);
+      var addCategory = document.createTextNode(data[i][3]);
+      var addNewLine = document.createElement("br")
+      x.appendChild(addDate)
+      x.appendChild(addExpense)
+      x.appendChild(addCategory)
+      x.appendChild(addNewLine)
+    }
+  }
 }
 
 var date = document.getElementById("date")
@@ -22,7 +41,3 @@ var addEntry = function(e){//adds entry to database and redisplays all entry of 
   console.log(date.value)
   console.log(expense.value)
 }
-
-var x = document.getElementById("data").value;
-x2 = JSON.parse(x)
-console.log(x2)
