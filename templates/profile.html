@@ -3,12 +3,81 @@
 
 {% block css %}
 <style>
+.block_container{
+  display: inline;
+}
+.container{
+     /* position:absolute;
+     left:50%;
+    top:50%;
+    transform: translate(-50%,-600%); */
+    background-color: C44429;
+    /* opacity: .9;
+    width:50%;
+   padding: 20px;
+    border-radius: 25px; */
+  }
 .submitLink {
   background-color: transparent;
   text-decoration: underline;
   border: none;
   color: blue;
   cursor: pointer;
+}
+.help-tip{
+    position: absolute;
+    cursor: default;
+    float: right;
+}
+
+.help-tip:before{
+  content:'?';
+  font-weight: bold;
+  color:#000000;
+}
+
+.help-tip:hover p{
+    display:block;
+    transform-origin: 100% 0%;
+
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.help-tip p{    /* The tooltip */
+    display: none;
+    text-align: left;
+    background-color: #1E2021;
+    padding: 20px;
+    width: 300px;
+    position: absolute;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    right: -4px;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.help-tip p:before{ /* The pointer of the tooltip */
+    position: absolute;
+    content: '';
+    width:0;
+    height: 0;
+    border:6px solid transparent;
+    border-bottom-color:#1E2021;
+    right:10px;
+    top:-12px;
+}
+
+.help-tip p:after{ /* Prevents the tooltip from being hidden */
+    width:100%;
+    height:40px;
+    content:'';
+    position: absolute;
+    top:-40px;
+    left:0;
 }
 </style>
 {% endblock %}
@@ -30,20 +99,43 @@
 <h1><p>{{ title }}</p></h1>
 
 <div class="container-fluid" >
-
+    <div class="row">
+  <div class="col-sm">
+  <h3>Review Past Spending </h3>
   <div class="row">
     <div class="col-sm">
       <input type="month" id="month" name="month">
       <button type="button" id = "monthButton">Select month</button>
     </div>
   </div>
-</div>
+  <!-- <form action="" method="post">
+  <h3>Enter Budget </h3>
+  <div class="row">
+    <div class="col-sm">
+      <input type="text" id="budget" name="budget">
+      <button type="button" id = "budgetButton"> Enter</button>
+    </div>
+  </div>
+  </form> -->
+  </div>
+
+  <div class="col-sm">
+<h3>Create a New Spending Entry</h3>
 Enter a date:
 <form action="/processEntry" method="post">
 <input type="date" id="date" name="date">
+<br>
 Enter your expense:
+<br>
 <input type="text" id="expense" name="expense">
+<br>
+<div id="block_container">
 Enter the category:
+<div class="help-tip">
+    <p>Income is the total earnings for the month. Select other categories when inputting expenses.</p>
+</div>
+</div>
+<br>
 <select name="category">
   <option value="income">Income</option>
   <option value="food">Food</option>
@@ -51,12 +143,18 @@ Enter the category:
   <option value="clothing">Clothing</option>
   <option value="other">Other</option>
 </select>
-<button type="submit" id = "entryButton">Create new entry for chosen month</button>
+<br>
+<button type="submit" id = "entryButton">Create</button>
 </form>
+</div>
+</div>
+</div>
+</div>
 <input id="data" name="data" type="hidden" value="{{data}}">
-<div id="total"></div>
+<div id="total">
 <div id="display">
 </div>
-</div> <br><br><br>
+</div>
+<br><br><br>
 <script src="static/profile.js"></script>
 {% endblock %}
