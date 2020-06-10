@@ -39,7 +39,7 @@ data.sort(function(a, b) {
     return parseTime(a[1]) - parseTime(b[1]);
 });
 
-console.log(data);
+// console.log(data);
 
 
 // GRAPHS
@@ -82,7 +82,6 @@ function initGraph(id) {
         }
         var firstDate = date.join("-");
         firstDate = parseTime(firstDate);
-        console.log(firstDate);
 
         for (var i = 0; i < data.length; i++) {
             var dataDate = parseTime(data[i][1]);
@@ -135,7 +134,6 @@ function initGraph(id) {
 
         var firstDate = date.join("-");
         firstDate = parseTime(firstDate);
-        console.log(firstDate);
 
         for (var i = 0; i < data.length; i++) {
             var dataDate = parseTime(data[i][1]);
