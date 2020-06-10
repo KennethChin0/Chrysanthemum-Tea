@@ -21,6 +21,15 @@ function clearNodes() {
     }
 }
 
+function sortDates() {
+    data.sort(function(a, b) {
+        date1 = new Date(a[1] + " 0:00");
+        date2 = new Date(b[1] + " 0:00");
+
+        return date1 - date2;
+    });
+}
+
 var render = function(e){//displays all entries of this month
     yearAndMonth = e.split("-")
     year = yearAndMonth[0]
@@ -29,6 +38,7 @@ var render = function(e){//displays all entries of this month
     var total = 0;
 
     clearNodes()
+    sortDates()
     for (var i=0;i<data.length; i++) {
         if (data[i][0] == month) {
             var addDate = document.createTextNode(data[i][1] + " ");
@@ -44,7 +54,6 @@ var render = function(e){//displays all entries of this month
             total += data[i][2]
         }
     }
-    console.log(total)
 
     var addBudget = "Your budget remaining is " + total;
     var totalText = document.getElementById("total")
