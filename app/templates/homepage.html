@@ -44,6 +44,7 @@
         {% endif %}
     </div>
 
+    {% if sessionstatus %}
     <div class = "btn-group" role = "group">
         <button type = "button" id = "b1" class = "btn btn-outline-primary"> 
             This Month </button>
@@ -51,7 +52,12 @@
             Past 6 Months </button>
         <button type = "button" id = "b3" class = "btn btn-outline-primary"> All-Time </button>
     </div>
+    <br>
+    <div id = "graph"></div>
+
+    <input id="data" name="data" type="hidden" value="{{data}}">
 
     <script src="http://d3js.org/d3.v5.js" charset="utf-8"></script>
     <script src="static/homepage.js"></script>
+    {% endif %}
 {% endblock %}

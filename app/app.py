@@ -60,10 +60,13 @@ def root():
     
     if ss:
         username = session["user"]
+        jsonData = json.dumps(getData())
     else:
         username = ""
+        jsonData = []
 
-    return render_template("homepage.html", sessionstatus = ss, user = username)
+    return render_template("homepage.html", 
+                            sessionstatus = ss, user = username, data = jsonData)
 
 
 @app.route("/login")
@@ -205,20 +208,21 @@ def addUser(user, pswd, conf):
         flash("Passwords do not match. Please try again.")
         return False
 
-
-@app.route("/profile")
-def profile():
-    if "user" not in session:
-        return redirect(url_for("root"))
-    
+def getData():
     with sqlite3.connect(DB_FILE) as connection:
         cur = connection.cursor()
         q = "SELECT * FROM " + session["user"] + ";"
         thingy = cur.execute(q)
         data = thingy.fetchall()
         print(data)
+    return data
 
-    return render_template("profile.html", data = json.dumps(data))
+@app.route("/profile")
+def profile():
+    if "user" not in session:
+        return redirect(url_for("root"))
+
+    return render_template("profile.html", data = json.dumps(getData()))
 
 
 
