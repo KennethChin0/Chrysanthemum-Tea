@@ -39,8 +39,7 @@ function draw() {
     wConst = window.innerWidth / screen.availWidth;
 
     if (currentID != "") {
-        initGraph(currentID);
-        initPie(currentID);
+        initGraphs(currentID);
     }
 }
 window.addEventListener("resize", draw);
@@ -62,26 +61,35 @@ console.log(data);
 
 
 // GRAPHS
-function initGraph(id) {
+function initGraphs(id) {
     // Clear
-    d3.select("#graph").selectAll("svg").remove();
-    document.getElementById("graph").innerHTML = "";
+    d3.select("#line").selectAll("svg").remove();
+    d3.select("#pie").selectAll("svg").remove();
+    document.getElementById("nothing").innerHTML = "";
 
     var dates = [];
     var money = [];
     var cash = 0;
+
+    var pieData = [];
+
     var range;
 
-    // Draw Graph
+    // Sort Data into Arrays
     if (id == "b3") {
         for (var i = 0; i < data.length; i++) {
             cash += data[i][2];
-            money.push(cash);
+            money[i] = cash;
+            dates[i] = parseTime(data[i][1]);
 
-            dates.push(parseTime(data[i][1]));
+            pieData[i] = {
+                "category": data[i][3],
+                "amount": data[i][2]
+            };
         }
     }
     else {
+        // Get correct past data for a certain time range
         var timeNow = new Date();
         timeNow.setHours(0, 0, 0);
         timeNow = formatTime(timeNow);
@@ -135,13 +143,18 @@ function initGraph(id) {
         var firstDate = date.join("-");
         firstDate = parseTime(firstDate);
 
+        var index = 0;
         for (var i = 0; i < data.length; i++) {
             var dataDate = parseTime(data[i][1]);
             if (firstDate <= dataDate) {
                 cash += data[i][2];
-                money.push(cash);
+                money[index] = cash;
+                dates[index] = parseTime(data[i][1]);
 
-                dates.push(dataDate);
+                pieData[index++] = {
+                    "category": data[i][3],
+                    "amount": data[i][2]
+                };
             }
         }
     }
@@ -151,11 +164,12 @@ function initGraph(id) {
         "<br><br> Uhoh. There's nothing here. &#128557";
     }
     else {
-        createGraph(dates, money, 0);
+        createLine(dates, money, 0);
+        createPie(pieData);
     }
 }
 
-function createGraph(dates, money, range) {
+function createLine(dates, money, range) {
     var svgHeight = 600 * hConst;
     var svgWidth = 750 * wConst;
 
@@ -176,12 +190,12 @@ function createGraph(dates, money, range) {
     }
 
     // Create SVG
-    var svg = d3.select("#graph")
+    var svg = d3.select("#line")
         .append("svg")
-        .attr("width", svgWidth)
-        .attr("height", svgHeight)
+            .attr("width", svgWidth)
+            .attr("height", svgHeight)
         .append("g")
-        .attr("transform", "translate(" + margins.left + "," + margins.top + ")");
+            .attr("transform", "translate(" + margins.left + "," + margins.top + ")");
 
     // Create and add axes to graph
     var xAxis = d3.scaleTime()
@@ -210,10 +224,26 @@ function createGraph(dates, money, range) {
     // Add labels
 }
 
-function initPie(id) {
-    return;
+function createPie(pieData) {
+    var svgDiameter = 500;
+    var margin = 20;
+    var radius = svgDiameter / 2 - margin;
+
+    // Create SVG
+    var svg = d3.select("pie")
+        .append("svg")
+            .attr("width", svgDiameter)
+            .attr("height", svgDiameter)
+        .append("g")
+            .attr("transform", "translate(" + svgDiameter / 2 + ")");
+    
+    var data = process(pieData);
+
 }
 
-function createPie() {
-    return;
+function process(data) {
+    console.log(data);
+    var income, clothing, food, other;
+    for (var entry in data) {
+    }
 }

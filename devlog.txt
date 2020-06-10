@@ -4,5 +4,9 @@ Team -- 2020-6-9 18:55
 Chin Kenneth -- 2020-6-09 15:23
     - Added front end to profile page
     - Added ReadMe
+
 Chen Justin -- 2020-6-10 1:47
     - Created graphs that track your budget on the homepage
+Chen Justin -- 2020-6-10 17:43
+    - Took into account window resizing for graphs
+    - Started work on creating the data for pie graph
