@@ -19,5 +19,5 @@ requirements can be found in doc/requirements.txt
 `$ git clone https://github.com/KennethChin0/Chrysanthemum-Tea.git`  
  
 ### Run the project:
-cd into the cloned repo and run:
+cd into the cloned repo then cd to app folder and run:
 `$ python3 app.py`  
