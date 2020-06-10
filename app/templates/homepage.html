@@ -1,32 +1,53 @@
 {% extends "template.html" %}
 
-{% block buttons %}
-{% if sessionstatus %}
-<li class="nav-item">
-  <a href="{{ url_for('profile') }}" class="nav-link">My Profile</a>
-</li>
-<li class="nav-item">
-  <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
-</li>
-{% else %}
-<li class="nav-item">
-  <a href="{{ url_for('login') }}" class="nav-link">Login</a>
-</li>
+{% block css %}
+<style>
+    body {
+        text-align: center;
+    }
+    .btn:focus {
+        outline: none;
+        box-shadow: none;
+    }
+</style>
+{% endblock %}
 
-<li class="nav-item">
-  <a href="{{ url_for('register') }}" class="nav-link">Register</a>
-</li>
-{% endif %}
+{% block buttons %}
+    {% if sessionstatus %}
+        <li class="nav-item">
+            <a href="{{ url_for('profile') }}" class="nav-link">My Profile</a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ url_for('register') }}" class="nav-link">Register</a>
+        </li>
+    {% endif %}
 {% endblock %}
 
 {% block body %}
-<a href="{{ url_for('root') }}" class="nav-link" style="color: black; padding: 0px;">
-<div class="jumbotron text-center" style="background-color: #aed6f1; border-radius: 0; margin-top:-16px;">
-  <h1>Budget Tracker</h1>
+    <div class="jumbotron text-center" style="background-color: #aed6f1; border-radius: 0; margin-top:-16px;">
+        {% if sessionstatus %}
+            <h1> Welcome back, {{user}} </h1>
+        {% else %}
+            <h1> Budget Tracker </h1>
+        {% endif %}
+    </div>
 
-</div>
-</a>
+    <div class = "btn-group">
+        <button type = "button" id = "b1" class = "btn btn-outline-primary"> 
+            This Month </button>
+        <button type = "button" id = "b2" class = "btn btn-outline-primary"> 
+            Past 6 Months </button>
+        <button type = "button" id = "b3" class = "btn btn-outline-primary"> All-Time </button>
+    </div>
 
-
-
+    <script src="http://d3js.org/d3.v5.js" charset="utf-8"></script>
+    <script src="static/homepage.js"></script>
 {% endblock %}

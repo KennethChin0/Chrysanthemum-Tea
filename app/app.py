@@ -56,7 +56,14 @@ searchdict = {}
 
 @app.route("/")
 def root():
-    return render_template("homepage.html", sessionstatus="user" in session)
+    ss = "user" in session
+    
+    if ss:
+        username = session["user"]
+    else:
+        username = ""
+
+    return render_template("homepage.html", sessionstatus = ss, user = username)
 
 
 @app.route("/login")
