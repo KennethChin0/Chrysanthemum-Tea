@@ -43,12 +43,38 @@ var render = function(e){//displays all entries of this month
         if (data[i][0] == month) {
             var addDate = document.createTextNode(data[i][1] + " ");
             var addExpense = document.createTextNode(data[i][2] + " ");
-            var addCategory = document.createTextNode(data[i][3]);
+            var addCategory = document.createTextNode(data[i][3] + " ");
+            var addRemove = document.createElement("form")
+            var removeButton = document.createElement("input")
+            var dateInput = document.createElement("input")
+            dateInput.id = "dateInput"
+            dateInput.name = "dateInput"
+            dateInput.value = data[i][1]
+            dateInput.type = "hidden"
+            var expenseInput = document.createElement("input")
+            expenseInput.id = "expenseInput"
+            expenseInput.name = "expenseInput"
+            expenseInput.value = data[i][2]
+            expenseInput.type = "hidden"
+            var categoryInput = document.createElement("input")
+            categoryInput.id = "categoryInput"
+            categoryInput.name = "categoryInput"
+            categoryInput.value = data[i][3]
+            categoryInput.type = "hidden"
+            addRemove.method="POST"
+            addRemove.action="/removeEntry"
+            removeButton.type = "submit"
+            removeButton.value="remove"
+            addRemove.appendChild(dateInput)
+            addRemove.appendChild(expenseInput)
+            addRemove.appendChild(categoryInput)
+            addRemove.appendChild(removeButton)
             var addNewLine = document.createElement("br")
-            
+
             x.appendChild(addDate)
             x.appendChild(addExpense)
             x.appendChild(addCategory)
+            x.appendChild(addRemove)
             x.appendChild(addNewLine)
 
             total += data[i][2]

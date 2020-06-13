@@ -57,7 +57,7 @@ searchdict = {}
 @app.route("/")
 def root():
     ss = "user" in session
-    
+
     if ss:
         username = session["user"]
         jsonData = json.dumps(getData())
@@ -65,7 +65,7 @@ def root():
         username = ""
         jsonData = []
 
-    return render_template("homepage.html", 
+    return render_template("homepage.html",
                             sessionstatus = ss, user = username, data = jsonData)
 
 
@@ -128,10 +128,10 @@ def register():
                     )
 
                 return redirect(url_for("login"))
-            
+
             else:
                 return redirect(url_for("register"))
-        
+
         else:
             flash("Please make sure to fill all fields!")
 
@@ -180,7 +180,7 @@ def processEntry():
 def logout():
     if "user" in session:
         session.pop("user")
-    
+
     return redirect(url_for("root"))
 
 
@@ -203,7 +203,7 @@ def addUser(user, pswd, conf):
             cur.execute(q)
             connection.commit()
         return True
-    
+
     else:
         flash("Passwords do not match. Please try again.")
         return False
@@ -224,7 +224,17 @@ def profile():
 
     return render_template("profile.html", data = json.dumps(getData()))
 
-
+@app.route("/removeEntry", methods=["POST"])
+def removeEntry():
+    user = session["user"]
+    expense = request.form["expenseInput"]
+    category = request.form["categoryInput"]
+    date = request.form["dateInput"]
+    with sqlite3.connect(DB_FILE) as connection:
+         cur = connection.cursor()
+         q = "DELETE FROM "+user+" WHERE date = "+"'"+date+"'"+" AND expense = "+expense+" AND category = "+"'"+category+"';"
+         cur.execute(q)
+    return redirect(url_for("profile"))
 
 if __name__ == "__main__":
     app.debug = True
