@@ -23,3 +23,6 @@ Chen Justin -- 2020-6-10 1:47
 Chen Justin -- 2020-6-10 17:43
     - Took into account window resizing for graphs
     - Started work on creating the data for pie graph
+
+Chen Brandon -- 2020-6-13 18:32
+    - Added remove function for each entry through an invisible form in javascript
