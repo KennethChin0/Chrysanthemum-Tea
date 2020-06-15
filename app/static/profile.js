@@ -48,8 +48,14 @@ var render = function(e){//displays all entries of this month
             var removeButton = document.createElement("input")
             var dateInput = document.createElement("input")
             var div = document.createElement("div");
-            div.classList.add("entry")
-            div.className = "entry"
+            var row = document.createElement("div");
+            var div1 = document.createElement("div");
+            var div2 = document.createElement("div");
+            // div.style.backgroundColor = "#D93600";
+            row.className = "row"
+            div.className = "container"
+            div1.className = "col"
+            div2.className = "col"
             dateInput.id = "dateInput"
             dateInput.name = "dateInput"
             dateInput.value = data[i][1]
@@ -75,13 +81,22 @@ var render = function(e){//displays all entries of this month
             addRemove.appendChild(removeButton)
             var addNewLine = document.createElement("br")
 
-            x.appendChild(div)
-            x.appendChild(addDate)
-            x.appendChild(addExpense)
-            x.appendChild(addCategory)
-            x.appendChild(addRemove)
-            x.appendChild(addNewLine)
+            //
+            // x.appendChild(addDate)
+            // x.appendChild(addExpense)
+            // x.appendChild(addCategory)
+            // x.appendChild(addRemove)
+            // x.appendChild(addNewLine)
 
+            div1.appendChild(addDate)
+            div1.appendChild(addExpense)
+            div1.appendChild(addCategory)
+            div2.appendChild(addRemove)
+            row.appendChild(div1)
+            row.appendChild(div2)
+            div.appendChild(row)
+            div.appendChild(addNewLine)
+            x.appendChild(div)
             total += data[i][2]
         }
     }
