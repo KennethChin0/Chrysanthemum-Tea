@@ -51,11 +51,15 @@ var render = function(e){//displays all entries of this month
             var row = document.createElement("div");
             var div1 = document.createElement("div");
             var div2 = document.createElement("div");
+            var div3 = document.createElement("div");
+            var div4 = document.createElement("div");
             // div.style.backgroundColor = "#D93600";
             row.className = "row"
             div.className = "container"
             div1.className = "col"
             div2.className = "col"
+            div3.className = "col"
+            div4.className = "col"
             dateInput.id = "dateInput"
             dateInput.name = "dateInput"
             dateInput.value = data[i][1]
@@ -89,11 +93,13 @@ var render = function(e){//displays all entries of this month
             // x.appendChild(addNewLine)
 
             div1.appendChild(addDate)
-            div1.appendChild(addExpense)
-            div1.appendChild(addCategory)
-            div2.appendChild(addRemove)
+            div2.appendChild(addExpense)
+            div3.appendChild(addCategory)
+            div4.appendChild(addRemove)
             row.appendChild(div1)
             row.appendChild(div2)
+            row.appendChild(div3)
+            row.appendChild(div4)
             div.appendChild(row)
             div.appendChild(addNewLine)
             x.appendChild(div)
@@ -101,7 +107,7 @@ var render = function(e){//displays all entries of this month
         }
     }
 
-    var addBudget = "Your budget remaining is " + total;
+    var addBudget = "   Remaining Budget:  " + total;
     var totalText = document.getElementById("total")
     totalText.innerHTML = addBudget;
 }
