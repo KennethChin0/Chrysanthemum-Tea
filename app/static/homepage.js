@@ -73,8 +73,6 @@ function initGraphs(id) {
 
     var pieData = [];
 
-    var range;
-
     // Sort Data into Arrays
     if (id == "b3") {
         for (var i = 0; i < data.length; i++) {
@@ -101,7 +99,7 @@ function initGraphs(id) {
 
         if (id == "b1") {
             if (month == 1) {
-                date[0] = String(year - 1);
+                date[0] = String(parseInt(year) - 1);
                 date[1] = "12";
             }
             else {
@@ -114,7 +112,7 @@ function initGraphs(id) {
                 else if (month != 8 && day == 31) {
                     date[2] = "30";
                 }
-                date[1] = "0" + String(month - 1);
+                date[1] = "0" + String(parseInt(month) - 1);
             }
         }
     
@@ -129,14 +127,15 @@ function initGraphs(id) {
                 else if (day == 31) {
                     date[2] = "30"
                 }
-                date[1] = "0" + String(month - 6);
+                date[1] = "0" + String(parseInt(month) - 6);
             }
             else {
                 if (day == 31) {
                     date[2] = "30";
                 }
-                date[0] = String(year - 1);
-                date[1] = "0" + String(month + 6);
+                if (month < 4) date[1] = "0" + String(parseInt(month) + 6);
+                else date[1] = String(parseInt(month) + 6);
+                date[0] = String(parseInt(year) - 1);
             }
         }
 
@@ -146,6 +145,7 @@ function initGraphs(id) {
         var index = 0;
         for (var i = 0; i < data.length; i++) {
             var dataDate = parseTime(data[i][1]);
+
             if (firstDate <= dataDate) {
                 cash += data[i][2];
                 money[index] = cash;
@@ -235,14 +235,18 @@ function process(data) {
 
     for (var entry in data) {
         var cat = data[entry]["category"];
-        var amount = data[entry]["amount"] * -1;
+        var amount = data[entry]["amount"];// * -1;
 
         if (cat == "clothing") clothing += amount;
         else if (cat == "food") food += amount;
         else if (cat == "rent") rent += amount;
         else if (cat == "other") other += amount;
     }
-    var total = {"Clothing": clothing, "Food": food, "Rent": rent, "Other": other};
+    var total = {};
+    if (clothing > 0) total["Clothing"] = clothing;
+    if (food > 0) total["Food"] = food;
+    if (rent > 0) total["Rent"] = rent;
+    if (other > 0) total["Other"] = other;
 
     return total;
 }
