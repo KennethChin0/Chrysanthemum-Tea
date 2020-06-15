@@ -13,7 +13,12 @@
         padding-top: 30px;
         padding-bottom: 30px;
     }
+    .container {
+        float: left;
+        width: 50%;
+    }
     .container-fluid {
+        display: inline-block;
         /* position:absolute;
         left:50%;
         top:50%;
@@ -25,7 +30,6 @@
         border-radius: 25px; */
         background: rgba(204, 204, 204, 0.7);
         /* background-color: #576066; */
-        width:50%;
         padding: 20px;
         border-radius: 25px;
     }
@@ -63,26 +67,22 @@
     {% if sessionstatus %}
     <br>
     <div class = "container-fluid">
-    <div class = "btn-group" role = "group">
-        <button type = "button" id = "b1" class = "btn btn-outline-primary">
-            This Month </button>
-        <button type = "button" id = "b2" class = "btn btn-outline-primary">
-            Past 6 Months </button>
-        <button type = "button" id = "b3" class = "btn btn-outline-primary"> All-Time </button>
-    </div>
-    <br>
-    <div id = "nothing"></div>
-    <div class = "container">
-        <div class = "row">
-            <div id = "line" class = "col"></div>
-            <div id = "pie" class = "col"></div>
+        <div class = "btn-group" role = "group">
+            <button type = "button" id = "b1" class = "btn btn-outline-primary">
+                This Month </button>
+            <button type = "button" id = "b2" class = "btn btn-outline-primary">
+                Past 6 Months </button>
+            <button type = "button" id = "b3" class = "btn btn-outline-primary"> All-Time </button>
         </div>
+        <br>
+        <div id = "nothing"></div>
+        <div id = "line" class = "container"></div>
+        <div id = "pie" class = "container" ></div>
     </div>
-
+    
     <input id="data" name="data" type="hidden" value="{{data}}">
 
     <script src="http://d3js.org/d3.v5.js" charset="utf-8"></script>
     <script src="static/homepage.js"></script>
-    </div>
     {% endif %}
 {% endblock %}

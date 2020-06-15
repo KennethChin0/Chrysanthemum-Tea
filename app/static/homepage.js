@@ -57,7 +57,7 @@ data.sort(function(a, b) {
     return parseTime(a[1]) - parseTime(b[1]);
 });
 
-console.log(data);
+// console.log(data);
 
 
 // GRAPHS
@@ -169,19 +169,16 @@ function initGraphs(id) {
     }
 }
 
-function createLine(dates, money, range) {
+function createLine(dates, money) {
     var svgHeight = 600 * hConst;
     var svgWidth = 750 * wConst;
 
     var margins = { top: 50 * hConst, bottom: 50 * hConst,
-                    left: 50 * wConst, right: 50 * wConst};
+                    left: 60 * wConst, right: 50 * wConst};
     var height = svgHeight - margins.top - margins.bottom;
     var width = svgWidth - margins.left - margins.right;
 
-    // dates = dates.slice(0, range);
-    // money = money.slice(0, range);
     var dataPoints = [];
-    // for (var i = 0; i < range; i++)
     for (var i = 0; i < dates.length; i++) {
         dataPoints[i] = {
             "date": dates[i],
@@ -214,36 +211,95 @@ function createLine(dates, money, range) {
     // Add lines
     svg.append("path")
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", "white")
         .attr("stroke-width", 1.5)
         .datum(dataPoints)
         .attr("d", d3.line()
             .x(d => xAxis(d.date))
             .y(d => yAxis(d.cash)));
     
-    // Add labels
+    // Add Title
+    svg.append("text")
+        .attr("x", (width / 2))
+        .attr("y", 0 - (margins.top / 2))
+        .attr("text-anchor", "middle")
+        .style("font-size", "18px")
+        .text("Spending History");
 }
 
+function process(data) {
+    var clothing = 0;
+    var food = 0;
+    var rent = 0;
+    var other = 0;
+
+    for (var entry in data) {
+        var cat = data[entry]["category"];
+        var amount = data[entry]["amount"] * -1;
+
+        if (cat == "clothing") clothing += amount;
+        else if (cat == "food") food += amount;
+        else if (cat == "rent") rent += amount;
+        else if (cat == "other") other += amount;
+    }
+    var total = {"Clothing": clothing, "Food": food, "Rent": rent, "Other": other};
+
+    return total;
+}
 function createPie(pieData) {
-    var svgDiameter = 500;
-    var margin = 20;
+    var svgDiameter = 600 * hConst;
+    var margin = 40 * hConst;
     var radius = svgDiameter / 2 - margin;
 
     // Create SVG
-    var svg = d3.select("pie")
+    var svg = d3.select("#pie")
         .append("svg")
             .attr("width", svgDiameter)
             .attr("height", svgDiameter)
         .append("g")
-            .attr("transform", "translate(" + svgDiameter / 2 + ")");
+            .attr("transform", "translate(" + svgDiameter / 2 + "," + svgDiameter / 2 + ")");
+    
+    // Add title
+    svg.append("text")
+        .attr("x", 0)
+        .attr("y", 0 - svgDiameter / 2 + margin / 2)
+        .attr("text-anchor", "middle")
+        .style("font-size", "18px")
+        .text("What am I spending on?");
     
     var data = process(pieData);
 
-}
+    // Set color range
+    var color = d3.scaleOrdinal()
+        .domain(data)
+        .range(["#FF6F61", "#88B04B", "#EFC050", "#7FCDCD"]);
 
-function process(data) {
-    console.log(data);
-    var income, clothing, food, other;
-    for (var entry in data) {
-    }
+    // Find pie positions of data
+    var pie = d3.pie()
+        .value(d => d.value);
+    var posData = pie(d3.entries(data));
+
+    // Find arcs
+    var arc = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius);
+    
+    // Draw
+    svg.selectAll("arcs")
+        .data(posData)
+        .enter()
+        .append("path")
+            .attr("d", arc)
+            .attr('fill', d => color(d.data.key));
+    
+    // Add labels
+    svg.selectAll("arcs")
+        .data(posData)
+        .enter()
+        .append("text")
+            .text(d => d.data.key)
+            .attr("transform", d => "translate(" + arc.centroid(d) + ")")
+                .style("text-anchor", "middle")
+                .style("fill", "white")
+                .style("font-size", 16);
 }

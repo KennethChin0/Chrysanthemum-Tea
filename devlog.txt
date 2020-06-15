@@ -26,3 +26,6 @@ Chen Justin -- 2020-6-10 17:43
 
 Chen Brandon -- 2020-6-13 18:32
     - Added remove function for each entry through an invisible form in javascript
+
+Chen Justin -- 2020-6-15 7;11
+    - Finished pie graph
