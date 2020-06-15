@@ -67,9 +67,8 @@ var render = function(e){//displays all entries of this month
             addRemove.method="POST"
             addRemove.action="/removeEntry"
             removeButton.type = "button"
-            removeButton.className = "btn btn-outline-primary"
+            removeButton.className = "btn btn-outline-danger"
             removeButton.value="remove"
-            addRemove.style.backgroundColor = "#D93600";
             addRemove.appendChild(dateInput)
             addRemove.appendChild(expenseInput)
             addRemove.appendChild(categoryInput)
