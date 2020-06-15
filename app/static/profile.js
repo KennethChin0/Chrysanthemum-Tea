@@ -47,6 +47,8 @@ var render = function(e){//displays all entries of this month
             var addRemove = document.createElement("form")
             var removeButton = document.createElement("input")
             var dateInput = document.createElement("input")
+            var div = document.createElement("div");
+            div.classList.add("entry")
             dateInput.id = "dateInput"
             dateInput.name = "dateInput"
             dateInput.value = data[i][1]
@@ -63,7 +65,8 @@ var render = function(e){//displays all entries of this month
             categoryInput.type = "hidden"
             addRemove.method="POST"
             addRemove.action="/removeEntry"
-            removeButton.type = "submit"
+            removeButton.type = "button"
+            removeButton.className = "btn btn-outline-primary""
             removeButton.value="remove"
             addRemove.appendChild(dateInput)
             addRemove.appendChild(expenseInput)
@@ -71,6 +74,7 @@ var render = function(e){//displays all entries of this month
             addRemove.appendChild(removeButton)
             var addNewLine = document.createElement("br")
 
+            x.appendChild(div)
             x.appendChild(addDate)
             x.appendChild(addExpense)
             x.appendChild(addCategory)

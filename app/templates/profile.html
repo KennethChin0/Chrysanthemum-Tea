@@ -3,11 +3,18 @@
 
 {% block css %}
 <style>
+  .entry{
+    display: inline;
+    background-color: black;
+  }
+    .data {
+    display: inline;
+  }
     .block_container {
         display: inline;
     }
 
-    .container {
+    .container-fluid {
         /* position:absolute;
         left:50%;
         top:50%;
@@ -17,6 +24,17 @@
         width:50%;
         padding: 20px;
         border-radius: 25px; */
+        background: rgba(204, 204, 204, 0.7);
+        /* background-color: #576066; */
+        width:50%;
+        padding: 20px;
+        border-radius: 25px;
+    }
+    h3 {
+      color: black;
+    }
+    body {
+      color: black;
     }
 
     .submitLink {
@@ -31,6 +49,7 @@
         position: absolute;
         cursor: default;
         float: right;
+        display: inline;
     }
 
     .help-tip:before {
@@ -113,7 +132,7 @@
                 <div class="row">
                     <div class="col-sm">
                         <input type="month" id="month" name="month">
-                        <button type="button" id="monthButton">Select month</button>
+                        <button class = "btn btn-outline-primary" type="button" id="monthButton">Select month</button>
                     </div>
                 </div>
                 <!-- <form action="" method="post">
@@ -144,7 +163,6 @@
                                 expenses.</p>
                         </div>
                     </div>
-                    <br>
                     <select name="category">
                         <option value="income">Income</option>
                         <option value="food">Food</option>
@@ -153,19 +171,20 @@
                         <option value="other">Other</option>
                     </select>
                     <br>
-                    <button type="submit" id="entryButton">Create</button>
+                    <button class="btn btn-outline-primary" type="submit" id="entryButton">Create</button>
                 </form>
             </div>
         </div>
-    </div>
-</div>
+
+
 
 <input id="data" name="data" type="hidden" value="{{data}}">
 
 <div id="total"></div>
 
 <div id="display"></div>
-
+</div>
+</div>
 <br><br><br>
 
 <script src="static/profile.js"></script>
