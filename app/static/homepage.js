@@ -235,7 +235,7 @@ function process(data) {
 
     for (var entry in data) {
         var cat = data[entry]["category"];
-        var amount = data[entry]["amount"];// * -1;
+        var amount = data[entry]["amount"] * -1;
 
         if (cat == "clothing") clothing += amount;
         else if (cat == "food") food += amount;
