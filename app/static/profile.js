@@ -49,6 +49,7 @@ var render = function(e){//displays all entries of this month
             var dateInput = document.createElement("input")
             var div = document.createElement("div");
             div.classList.add("entry")
+            div.className = "entry"
             dateInput.id = "dateInput"
             dateInput.name = "dateInput"
             dateInput.value = data[i][1]
@@ -66,8 +67,9 @@ var render = function(e){//displays all entries of this month
             addRemove.method="POST"
             addRemove.action="/removeEntry"
             removeButton.type = "button"
-            removeButton.className = "btn btn-outline-primary""
+            removeButton.className = "btn btn-outline-primary"
             removeButton.value="remove"
+            addRemove.style.backgroundColor = "#D93600";
             addRemove.appendChild(dateInput)
             addRemove.appendChild(expenseInput)
             addRemove.appendChild(categoryInput)

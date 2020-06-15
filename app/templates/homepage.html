@@ -13,6 +13,22 @@
         padding-top: 30px;
         padding-bottom: 30px;
     }
+    .container-fluid {
+        /* position:absolute;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-600%); */
+        background-color: C44429;
+        /* opacity: .9;
+        width:50%;
+        padding: 20px;
+        border-radius: 25px; */
+        background: rgba(204, 204, 204, 0.7);
+        /* background-color: #576066; */
+        width:50%;
+        padding: 20px;
+        border-radius: 25px;
+    }
 </style>
 {% endblock %}
 
@@ -45,10 +61,12 @@
     </div>
 
     {% if sessionstatus %}
+    <br>
+    <div class = "container-fluid">
     <div class = "btn-group" role = "group">
-        <button type = "button" id = "b1" class = "btn btn-outline-primary"> 
+        <button type = "button" id = "b1" class = "btn btn-outline-primary">
             This Month </button>
-        <button type = "button" id = "b2" class = "btn btn-outline-primary"> 
+        <button type = "button" id = "b2" class = "btn btn-outline-primary">
             Past 6 Months </button>
         <button type = "button" id = "b3" class = "btn btn-outline-primary"> All-Time </button>
     </div>
@@ -65,5 +83,6 @@
 
     <script src="http://d3js.org/d3.v5.js" charset="utf-8"></script>
     <script src="static/homepage.js"></script>
+    </div>
     {% endif %}
 {% endblock %}
