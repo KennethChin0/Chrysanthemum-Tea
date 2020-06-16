@@ -22,3 +22,6 @@ requirements can be found in doc/requirements.txt
 cd into the cloned repo then cd to app folder and run:
 `$ python3 app.py`  
 **Some browsers, like Firefox, don't support input type=month and as a result past expenses won't appear**
+
+### Video Demo
+https://youtu.be/cgkeOm1XNjQ
