@@ -76,7 +76,7 @@ var render = function(e){//displays all entries of this month
             categoryInput.type = "hidden"
             addRemove.method="POST"
             addRemove.action="/removeEntry"
-            removeButton.type = "button"
+            removeButton.type = "submit"
             removeButton.className = "btn btn-outline-danger"
             removeButton.value="remove"
             addRemove.appendChild(dateInput)
